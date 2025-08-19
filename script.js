@@ -28,7 +28,34 @@ const getHumanChoice = () => {
     }
 }
 
-let humanChoice = getHumanChoice();
-console.log(humanChoice);
-let computerChoice = getComputerChoice();
-console.log(computerChoice);
+const playRound = (humanSelection, computerSelection) => {
+    if(humanSelection === computerSelection) {
+        return "It's a tie!";
+    } else if ((humanSelection === "Rock" && computerSelection === "Scissor") ||
+               (humanSelection === "Paper" && computerSelection === "Rock") ||
+               (humanSelection === "Scissor" && computerSelection === "Paper")) {
+        humanScore++;
+        return `You win! ${humanSelection} beats ${computerSelection}.`;
+    } else {
+        computerScore++;
+        return `You lose! ${computerSelection} beats ${humanSelection}.`;
+    }
+}
+
+function playGame() {
+    for (let i = 0; i < 5; i++) {
+        let humanChoice = getHumanChoice();
+        let computerChoice = getComputerChoice();
+        playRound(humanChoice, computerChoice);
+    }
+    if (humanScore > computerScore)
+        alert("Congratulations! You won the game!");
+    else if (humanScore < computerScore)
+        alert("Sorry! You lost the game.");
+    else
+        alert("It's a draw!");
+}
+
+playGame();
+console.log(`Human Score: ${humanScore}`);
+console.log(`Computer Score: ${computerScore}`);
